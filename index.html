@@ -1,0 +1,40 @@
+<!doctype html>
+
+<html>
+	<head>
+		<title>Day Calendar</title>
+		<link type="text/css" href="reset.css" rel="stylesheet" />
+		<link type="text/css" href="calendar.css" rel="stylesheet" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script src="jquery.tmpl.min.js"></script>
+		<script src="calendar.js" ></script>
+	</head>
+	<body>
+		<div class="page">
+			<div id="canvas">
+				<div id="timeDisplayColumn">
+				</div>
+				<div id="timeSlotsColumn">
+				</div>
+			</div>
+			<div id="details"></div>
+		</div>
+		<script id="event-template" type="text/x-jquery-tmpl">
+			<div class="event" style="width:${width}px;height:${height}px;left:${left}px;top:${top}px">
+				<h3 class="header">
+					{{if start === 12}} 
+						Noon 
+					{{else start < 12}}
+						${start} AM
+					{{else}} 
+						${start - 12} PM 
+					{{/if}}
+				</h3>
+				<div class="body">
+					<p class="title">${title}</p>
+					<p class="description">${description}</p>
+				</div>
+			</div>		
+		</script>
+	</body>
+</html>

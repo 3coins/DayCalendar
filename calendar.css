@@ -1,0 +1,92 @@
+/*
+ dark gray border - #BABEC6
+ light gray border - #D1D5DE
+ normal blue background - #E9EEF8
+ gray background - #DDE1EB
+ time display column background - #F2F2F2
+ time display font color - #9497A7
+*/
+
+.page{
+	width: 800px;
+	margin: 0 auto;
+}
+
+#canvas{
+	width: 700px;
+	border: solid gray 1px;
+	overflow: hidden;
+}
+
+#timeDisplayColumn{
+	float: left;
+	width: 60px;
+	background-color: #f2f2f2;
+}
+
+#timeSlotsColumn{
+	float: left;
+	width: 639px;
+	border-left: solid gray 1px;
+	position: relative;
+}
+
+.half-hour-slot{
+	height: 25px; 
+}
+
+.half-hour-marker{
+	border-bottom: solid #D1D5DE 1px;	
+}
+
+.full-hour-marker{
+	border-bottom: solid #BABEC6 1px;
+}
+
+.time-marking{
+	text-align: right;
+	line-height: 12px;
+	font-size: 12px;
+	color: #9497A7;
+	padding: 40px 5px 0px 0px;  
+}
+
+.non-working-hours{
+	background-color: #DDE1EB;
+}
+
+.working-hours{
+	background-color: #E9EEF8;
+}
+
+.event{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	border: solid gray 1px;
+	overflow: hidden;
+	color: #105FE3; 
+	background-color: #93B8F2;
+	border: solid #1060E3 1px;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	opacity: 0.8;
+	font-size: 13px;
+}
+
+.event .header{
+	font-weight: bold;
+	padding: 3px 5px;
+}
+
+.active .header{
+	background-color: #1060E3;
+}
+.event .body{
+	padding: 5px;
+}
+
+.event .description{
+	padding: 5px 0px 0px 0px;
+}
