@@ -4,7 +4,7 @@ $(function(){
 	var titleOpts = "abcdefghijklmnopqrstuvwxyz";
 	
 	// generate random events
-	for(var i = 0; i < 10; i++){
+	for(var i = 0; i < 15; i++){
 		var start = Math.floor(Math.random() * (18 - 7) + 8);
 		var end = start + Math.ceil(Math.random() * (18 - start));
 		events.push({
@@ -15,57 +15,35 @@ $(function(){
 		});
 	}
 	
-	/*var events = [{
-		title: "Piyush's Interview",
-		start: 9,
-		end: 11,
-		description: "Interview with Piyush Jain"
+	/*events = [{
+		description : "blah blah blah",
+		end : 14,
+		start : 12,
+		title : "lmnopqrs"
 	}, {
-		title: "Another Interview",
-		start: 10,
-		end: 12,
-		description: "Interview with another candidate"
+		description : "blah blah blah",
+		end : 18,
+		start : 15,
+		title : "oiwropwr"
 	}, {
-		title: "Lunch",
-		start: 11,
-		end: 13,
-		description: "Go to Lunch"
+		description : "blah blah blah",
+		end : 18,
+		start : 13,
+		title : "24jlkajflk"
 	}, {
-		title: "Test Event",
-		start: 12,
-		end: 14,
-		description: "Some Other Event"
+		description : "blah blah blah",
+		end : 14,
+		start : 9,
+		title : "asdfkkwer"
 	}, {
-		title: "Test Test Event",
-		start: 13,
-		end: 15,
-		description: "blah blah blah blah"
-	}, {
-		title: "Another Test Event",
-		start: 14,
-		end: 16,
-		description: "blah blah blah"
-	},{
-		title: "kjadkljAnother Test Event",
-		start: 15,
-		end: 17,
-		description: "blah blah blah"
-	},{
-		title: "lkajflkjoiwr,mv",
-		start: 16,
-		end: 19,
-		description: "blah blah blah"
-	},{
-		title: "lkajflkjoiwr,mv",
-		start: 16,
-		end: 18,
-		description: "blah blah blah"
-	},{
-		title: "ierewrkljalf",
-		start: 17,
-		end: 18,
-		description: "blah blah blah"
+		description : "blah blah blah",
+		end : 16,
+		start : 14,
+		title : "lmnopqrs"
 	}];*/
+	
+	console.log(events);
+	
 	
 	renderTimeSlotsColumn();
 	renderTimeDisplayColumn();
@@ -77,6 +55,7 @@ $(function(){
 	
 	var timeStart = new Date();
 	
+	// build adjacency matrix
 	jQuery.each(events, function(i, ele){
 		var row = [];
 		jQuery.each(events, function(j, jEle){
@@ -94,8 +73,11 @@ $(function(){
 	
 	timeStart = new Date();
 	
+	// collect all nodes that are connected
 	eventGraph = collectConnectedNodes(events, adjGraph);
 	
+	
+	// reset the visited flag
 	jQuery.each(events, function(i, item){
 		item.visited = false;
 	});
@@ -111,7 +93,6 @@ $(function(){
 	
 	// make another pass to do further grouping within a set
 	for(var i = 0; i < eventGraph.length; i++){
-		
 		var grp = eventGraph[i];
 		var len = grp.length;
 		
@@ -133,7 +114,7 @@ $(function(){
 					var ele = grp[k];
 					if(!ele.visited && $.type(ele) !== "array"){
 						
-						var adjacent = isAdjacent(event, ele);
+						var adjacent = isAdjacent(ele, event);
 						
 						if(!adjacent){
 							
@@ -290,7 +271,7 @@ function collectConnectedNodes(nodes, adjMatrix){
 function collectUnvisitedNeighbors(nodeIndex, nodes, adjMatrix, pushToStack){
 	var len = nodes.length;
 	var row = adjMatrix[nodeIndex];
-	for(var i = nodeIndex ; i < len; i++){
+	for(var i = 0 ; i < len; i++){
 		if(row[i] && !nodes[i].visited){
 			pushToStack.push(nodes[i]);
 			nodes[i].visited = true;
