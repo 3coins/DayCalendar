@@ -11,7 +11,9 @@ $(function(){
 			title: titleOpts.substring(Math.floor(Math.random() * 12), Math.ceil(Math.random() * 12 + 11)),
 			description: "blah blah blah",
 			start: start,
-			end: end
+			end: end,
+			index: i // adding an index to the events avoids calling "isAdjacent" method during second pass,
+					 // adjacency matrix and this index can be used to verify if the node is adjacent
 		});
 	}
 	
@@ -50,8 +52,30 @@ $(function(){
 	
 	var timeSlotCol = $("#timeSlotsColumn");
 	
+	var current;
+	
+	timeSlotCol.delegate("div.event", "click", function(evt){
+		console.log("inside event click...");
+		evt.stopPropagation();
+		var $this = $(this);
+		if($this !== current){
+			$this.addClass("active");
+			if(current){
+				current.removeClass("active");
+			}
+			current = $this;
+		}
+	});
+	
+	$(window).click(function(evt){
+		console.log("inside window click..");
+		if(current){
+			current.removeClass("active");
+		}
+	});
+	
 	// create a adjacency graph
-	var adjGraph = [];
+	var adjMatrix = [];
 	
 	var timeStart = new Date();
 	
@@ -61,26 +85,24 @@ $(function(){
 		jQuery.each(events, function(j, jEle){
 			row.push(isAdjacent(ele, jEle));
 		});
-		adjGraph.push(row);
+		adjMatrix.push(row);
 	});
 	
 	console.log("Ajacency graph time: " + (new Date() - timeStart) );
 	
-	console.log(adjGraph);
+	console.log(adjMatrix);
 	
 	var eventGraph = [];
-	var len = adjGraph.length;
+	var len = adjMatrix.length;
 	
 	timeStart = new Date();
 	
 	// collect all nodes that are connected
-	eventGraph = collectConnectedNodes(events, adjGraph);
+	eventGraph = collectConnectedNodes(events, adjMatrix);
 	
 	
 	// reset the visited flag
-	jQuery.each(events, function(i, item){
-		item.visited = false;
-	});
+	resetVisitedFlag(events);
 
 	
 	console.log(" Collecting groups time: " + (new Date() - timeStart));
@@ -119,10 +141,10 @@ $(function(){
 						if(!adjacent){
 							
 							jQuery.each(tmp, function(l, item){
-								if( isAdjacent(ele, item) ){
+								if(adjMatrix[ele.index][item.index]){
 									adjacent = true;
 									return false;
-								}; 
+								} 
 							});
 								
 							if(!adjacent){	
@@ -138,6 +160,9 @@ $(function(){
 		}
 		
 	}
+	
+	// reset the visited flag
+	resetVisitedFlag(events);
 	
 	console.log("Second pass time: " + (new Date() - timeStart));
 	
@@ -251,6 +276,12 @@ function renderTimeDisplayColumn(){
 	timeMarkings.push("<div class='time-marking'>&nbsp;</div>");
 	
 	$("#timeDisplayColumn").append(timeMarkings.join(""));
+}
+
+function resetVisitedFlag(nodes){
+	jQuery.each(nodes, function(i, node){
+		node.visited = false;
+	});
 }
 
 function collectConnectedNodes(nodes, adjMatrix){

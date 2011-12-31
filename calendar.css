@@ -73,15 +73,35 @@
 	-moz-border-radius: 5px;
 	opacity: 0.8;
 	font-size: 13px;
+	-webkit-transition:opacity linear 0.15s, background linear 0.25s, color linear 0.15s;
+	transition: opacity linear 0.15s, background linear 0.25s, color linear 0.15s;
+}
+
+.event.active {
+	opacity: 0.9;
+	background: #2A79ED;
+	color: #FFFFFF;
+	-moz-box-shadow: 1px 4px 5px 0px #585858;
+  	-webkit-box-shadow: 1px 4px 5px 0px #585858;
+  	box-shadow: 1px 4px 5px 0px #585858;
+	background: -moz-linear-gradient(-45deg, #2A79ED 0%, #3B84F1 25%, #6BA3FB 65%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#2A79ED), color-stop(25%, #3B84F1), color-stop(65%,#6BA3FB)); /* Chrome,Safari4+ */
+	-webkit-transition:opacity linear 0.15s, background linear 0.25s, color linear 0.15s;
+	transition: opacity linear 0.15s, background linear 0.25s, color linear 0.15s;
 }
 
 .event .header{
 	font-weight: bold;
 	padding: 3px 5px;
+	-webkit-transition: font-weight linear 0.25s, background-color linear 0.25s;
+	transition: font-weight linear 0.25s, background-color linear 0.25s;
 }
 
 .active .header{
 	background-color: #1060E3;
+	color: #FFFFFF;
+	-webkit-transition: background-color linear 0.25s, color linear 0.15s;
+	transition: background-color linear 0.25s, color linear 0.15s;
 }
 .event .body{
 	padding: 5px;
