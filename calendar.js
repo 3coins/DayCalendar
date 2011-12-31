@@ -54,23 +54,101 @@ $(function(){
 	
 	var current;
 	
-	timeSlotCol.delegate("div.event", "click", function(evt){
-		console.log("inside event click...");
-		evt.stopPropagation();
-		var $this = $(this);
-		if($this !== current){
-			$this.addClass("active");
+	var formTemplate = $("#event-edit-form");
+	var eventEditForm;
+	
+	function updateForm(vals){
+		eventEditForm.find("#title").val(vals.title);
+		eventEditForm.find("#description").val(vals.description);
+		eventEditForm.find("#start").val(vals.start);
+		eventEditForm.find("#end").val(vals.end);
+	}
+	
+	function showEventEditForm(opts){
+		if(!eventEditForm){
+			eventEditForm = formTemplate.tmpl({
+				title: opts.title,
+				description: opts.description,
+				start: opts.start,
+				end: opts.end,
+			}).appendTo(document.body);
+			eventEditForm.find("button.save").click(function(evt){
+				evt.stopPropagation();
+				// TODO: save the values, update the event block 
+				
+				// hide the form
+				eventEditForm.hide();
+			});
+			
+			eventEditForm.find("button.cancel").click(function(evt){				
+				evt.stopPropagation();
+				// hide the form
+				eventEditForm.hide();
+			});
+			
+		}
+		eventEditForm.css({
+			top: opts.start * 26 * 2 + timeSlotCol.offset().top,
+			left: opts.left
+		}).show();
+		
+		//TODO: update the form
+		updateForm(opts);
+	}
+	
+	function selectEvent(domRef){
+		if(domRef.get(0) != ( current && current.get(0))){
+			domRef.addClass("active");
 			if(current){
 				current.removeClass("active");
 			}
-			current = $this;
+			current = domRef;
 		}
+	}
+	
+	timeSlotCol.delegate("div.half-hour-slot", "dblclick", function(evt){
+		var pos = $(this).position();
+		var start = pos.top/(26 * 2);
+		var end = start + 0.5;
+		// bring up the event edit form
+		showEventEditForm({
+			start: start,
+			end: end,
+			description: "description",
+			title: "New Event",
+			left: evt.pageX
+		});
+	});
+	
+	timeSlotCol.delegate("div.event", "click", function(evt){
+		evt.stopPropagation();
+		var $this = $(this);
+		selectEvent($this);
+	});
+	
+	timeSlotCol.delegate("div.event", "dblclick", function(evt){
+		evt.stopPropagation();
+		var $this = $(this);
+		var index = $this.attr("data-index");
+		var data = events[parseInt(index)];
+		var pos = $this.position();
+		
+		// bring up the event edit form
+		showEventEditForm({
+			start: data.start,
+			end: data.end,
+			description: data.description,
+			title: data.title,
+			left: evt.pageX
+		});
+		
+		//setTimeout(function(){selectEvent($this)}, 100);
 	});
 	
 	$(window).click(function(evt){
-		console.log("inside window click..");
 		if(current){
 			current.removeClass("active");
+			current = null;
 		}
 	});
 	

@@ -6,66 +6,65 @@
  time display column background - #F2F2F2
  time display font color - #9497A7
 */
-
-.page{
+.page {
 	width: 800px;
 	margin: 0 auto;
 }
 
-#canvas{
+#canvas {
 	width: 700px;
 	border: solid gray 1px;
 	overflow: hidden;
 }
 
-#timeDisplayColumn{
+#timeDisplayColumn {
 	float: left;
 	width: 60px;
 	background-color: #f2f2f2;
 }
 
-#timeSlotsColumn{
+#timeSlotsColumn {
 	float: left;
 	width: 639px;
 	border-left: solid gray 1px;
 	position: relative;
 }
 
-.half-hour-slot{
-	height: 25px; 
+.half-hour-slot {
+	height: 25px;
 }
 
-.half-hour-marker{
-	border-bottom: solid #D1D5DE 1px;	
+.half-hour-marker {
+	border-bottom: solid #D1D5DE 1px;
 }
 
-.full-hour-marker{
+.full-hour-marker {
 	border-bottom: solid #BABEC6 1px;
 }
 
-.time-marking{
+.time-marking {
 	text-align: right;
 	line-height: 12px;
 	font-size: 12px;
 	color: #9497A7;
-	padding: 40px 5px 0px 0px;  
+	padding: 40px 5px 0px 0px;
 }
 
-.non-working-hours{
+.non-working-hours {
 	background-color: #DDE1EB;
 }
 
-.working-hours{
+.working-hours {
 	background-color: #E9EEF8;
 }
 
-.event{
+.event {
 	position: absolute;
 	top: 0px;
 	left: 0px;
 	border: solid gray 1px;
 	overflow: hidden;
-	color: #105FE3; 
+	color: #105FE3;
 	background-color: #93B8F2;
 	border: solid #1060E3 1px;
 	border-radius: 5px;
@@ -73,8 +72,10 @@
 	-moz-border-radius: 5px;
 	opacity: 0.8;
 	font-size: 13px;
-	-webkit-transition:opacity linear 0.15s, background linear 0.25s, color linear 0.15s;
-	transition: opacity linear 0.15s, background linear 0.25s, color linear 0.15s;
+	-webkit-transition: opacity linear 0.15s, background linear 0.25s, color
+		linear 0.15s;
+	transition: opacity linear 0.15s, background linear 0.25s, color linear
+		0.15s;
 }
 
 .event.active {
@@ -82,31 +83,138 @@
 	background: #2A79ED;
 	color: #FFFFFF;
 	-moz-box-shadow: 1px 4px 5px 0px #585858;
-  	-webkit-box-shadow: 1px 4px 5px 0px #585858;
-  	box-shadow: 1px 4px 5px 0px #585858;
-	background: -moz-linear-gradient(-45deg, #2A79ED 0%, #3B84F1 25%, #6BA3FB 65%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#2A79ED), color-stop(25%, #3B84F1), color-stop(65%,#6BA3FB)); /* Chrome,Safari4+ */
-	-webkit-transition:opacity linear 0.15s, background linear 0.25s, color linear 0.15s;
-	transition: opacity linear 0.15s, background linear 0.25s, color linear 0.15s;
+	-webkit-box-shadow: 1px 4px 5px 0px #585858;
+	box-shadow: 1px 4px 5px 0px #585858;
+	background: -moz-linear-gradient(-45deg, #2A79ED 0%, #3B84F1 25%, #6BA3FB 65%);
+	/* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #2A79ED),
+		color-stop(25%, #3B84F1), color-stop(65%, #6BA3FB) );
+	/* Chrome,Safari4+ */
+	-webkit-transition: opacity linear 0.15s, background linear 0.25s, color
+		linear 0.15s;
+	transition: opacity linear 0.15s, background linear 0.25s, color linear
+		0.15s;
+	box-shadow: 1px 4px 5px 0px #585858;
 }
 
-.event .header{
+.event .header {
 	font-weight: bold;
 	padding: 3px 5px;
-	-webkit-transition: font-weight linear 0.25s, background-color linear 0.25s;
+	-webkit-transition: font-weight linear 0.25s, background-color linear
+		0.25s;
 	transition: font-weight linear 0.25s, background-color linear 0.25s;
 }
 
-.active .header{
+.active .header {
 	background-color: #1060E3;
 	color: #FFFFFF;
 	-webkit-transition: background-color linear 0.25s, color linear 0.15s;
 	transition: background-color linear 0.25s, color linear 0.15s;
 }
-.event .body{
+
+.event .body {
 	padding: 5px;
 }
 
-.event .description{
+.event .description {
 	padding: 5px 0px 0px 0px;
+}
+
+.event-form {
+	position: absolute;
+	border: solid gray 1px;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	padding: 10px 15px 10px 5px;
+	background-color: #E2E2E2;
+	box-shadow: 1px 4px 5px 0px #585858;
+	-moz-box-shadow: 1px 4px 5px 0px #585858;
+	-webkit-box-shadow: 1px 4px 5px 0px #585858;
+	background: -moz-linear-gradient(-45deg, #E2E2E2 0%, #E4E4E4 25%, #F1F1F1 65%);
+	background: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #E2E2E2),
+		color-stop(25%, #E4E4E4), color-stop(65%, #F1F1F1) );
+	z-index: 1;
+}
+
+.event-form div {
+	margin: 7px 0px;
+	overflow: hidden;
+}
+
+.event-form input, .event-form textarea {
+	width: 150px;
+	float: left;
+	margin: 0px;
+}
+
+.event-form label {
+	float: left;
+	width: 85px;
+	text-align: right;
+	margin-right: 10px;
+	color: gray;
+	font-size: 14px;
+}
+
+.event-form div.buttons {
+	margin-top: 15px;
+	text-align: right;
+}
+
+.event-form .save {
+	background-color: #A5B8DA;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #a5b8da),
+		color-stop(100%, #7089b3) );
+	background-image: -webkit-linear-gradient(top, #a5b8da, #7089b3);
+	background-image: -moz-linear-gradient(top, #a5b8da, #7089b3);
+	background-image: -ms-linear-gradient(top, #a5b8da, #7089b3);
+	background-image: -o-linear-gradient(top, #a5b8da, #7089b3);
+	background-image: linear-gradient(top, #a5b8da, #7089b3);
+	border-top: 1px solid #758FBA;
+	border-right: 1px solid #6C84AB;
+	border-bottom: 1px solid #5C6F91;
+	border-left: 1px solid #6C84AB;
+	-webkit-border-radius: 18px;
+	-moz-border-radius: 18px;
+	-ms-border-radius: 18px;
+	-o-border-radius: 18px;
+	border-radius: 18px;
+	-webkit-box-shadow: inset 0 1px 0 0 #aec3e5;
+	-moz-box-shadow: inset 0 1px 0 0 #aec3e5;
+	-ms-box-shadow: inset 0 1px 0 0 #aec3e5;
+	-o-box-shadow: inset 0 1px 0 0 #aec3e5;
+	box-shadow: inset 0 1px 0 0 #aec3e5;
+	color: white;
+	font: bold 11px "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans",
+		Geneva, Verdana, sans-serif;
+	line-height: 1;
+	padding: 4px 15px 5px 15px;
+	text-align: center;
+	text-shadow: 0 -1px 1px #64799E;
+}
+
+.event-form .cancel {
+	background-color: #EEE;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #eeeeee),
+		color-stop(100%, #cccccc) );
+	background-image: -webkit-linear-gradient(top, #eeeeee, #cccccc);
+	background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
+	background-image: -ms-linear-gradient(top, #eeeeee, #cccccc);
+	background-image: -o-linear-gradient(top, #eeeeee, #cccccc);
+	background-image: linear-gradient(top, #eeeeee, #cccccc);
+	border: 1px solid #CCC;
+	border-bottom: 1px solid #BBB;
+	-webkit-border-radius: 18px;
+	-moz-border-radius: 18px;
+	-ms-border-radius: 18px;
+	-o-border-radius: 18px;
+	border-radius: 18px;
+	color: #333;
+	font: bold 11px "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans",
+		Geneva, Verdana, sans-serif;
+	line-height: 1;
+	padding: 4px 15px 5px 15px;
+	text-align: center;
+	text-shadow: 0 1px 0 #EEE;
 }
